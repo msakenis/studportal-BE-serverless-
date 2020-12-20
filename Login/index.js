@@ -3,11 +3,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const database = require('../SharedCode/db');
 const { sendContext } = require('../SharedCode/sendContext');
-const { validateLogin } = require('../SharedCode/middleware');
 
 module.exports = function (context, req) {
-  context.log('JavaScript HTTP trigger function processed a request.');
-
   if (req.method === 'POST') {
     if (validateLogin(req)) {
       //validation function imported from middleware.js returns true or false
@@ -67,5 +64,9 @@ module.exports = function (context, req) {
     } else {
       sendContext(context, { msg: 'Please enter email and password!' }, 400);
     }
+  }
+
+  function validateLogin(req) {
+    return req.body.email && req.body.password;
   }
 };
