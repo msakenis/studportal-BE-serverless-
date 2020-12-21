@@ -15,38 +15,59 @@ module.exports = function (context, req) {
       let courseInfo = req.body.slice(0, 1)[0];
 
       if (validateAddCourse(courseInfo, selectedStudents)) {
+        const selectStudsIds = selectedStudents.map((student) => student.id);
         database((db) => {
+          // validation that the same student should not be added to another course
           db.query(
-            // inserts course info
-            `INSERT INTO courses (title, lecturer, description, student_count, reg_date) VALUES (${mysql.escape(
-              courseInfo.title
-            )}, ${mysql.escape(courseInfo.lecturer)}, ${mysql.escape(
-              courseInfo.description
-            )}, ${mysql.escape(selectedStudents.length)}, now())`,
+            `SELECT * FROM STUDENTS WHERE id IN (${mysql.escape(
+              selectStudsIds
+            )})`,
             (err, result) => {
               if (err) {
                 sendContext(context, err, 400);
               } else {
-                let values = selectedStudents.map((element) => {
-                  return element.id;
-                });
-                db.query(
-                  `UPDATE students SET course_id = ${
-                    // updates students table adding course id to every students who is in the course
-                    result.insertId
-                  } WHERE id IN (${mysql.escape(values)})`,
-                  (err, result) => {
-                    if (err) {
-                      sendContext(context, err, 400);
-                    } else {
-                      sendContext(
-                        context,
-                        { msg: 'Course successfully created!' },
-                        201
-                      );
+                if (result.some((student) => student.course_id !== 0)) {
+                  sendContext(
+                    context,
+                    { msg: 'Some of the students already in the course!' },
+                    400
+                  );
+                } else {
+                  db.query(
+                    // inserts course info
+                    `INSERT INTO courses (title, lecturer, description, student_count, reg_date) VALUES (${mysql.escape(
+                      courseInfo.title
+                    )}, ${mysql.escape(courseInfo.lecturer)}, ${mysql.escape(
+                      courseInfo.description
+                    )}, ${mysql.escape(selectedStudents.length)}, now())`,
+                    (err, result) => {
+                      if (err) {
+                        sendContext(context, err, 400);
+                      } else {
+                        let values = selectedStudents.map((element) => {
+                          return element.id;
+                        });
+                        db.query(
+                          `UPDATE students SET course_id = ${
+                            // updates students table adding course id to every students who is in the course
+                            result.insertId
+                          } WHERE id IN (${mysql.escape(values)})`,
+                          (err, result) => {
+                            if (err) {
+                              sendContext(context, err, 400);
+                            } else {
+                              sendContext(
+                                context,
+                                { msg: 'Course successfully created!' },
+                                201
+                              );
+                            }
+                          }
+                        );
+                      }
                     }
-                  }
-                );
+                  );
+                }
               }
             }
           );
@@ -73,7 +94,6 @@ module.exports = function (context, req) {
   }
 
   function validateAddCourse(courseInfo, selectedStudents) {
-    console.log(courseInfo);
     if (
       courseInfo.title.length < 50 &&
       courseInfo.title.length > 2 &&
