@@ -60,7 +60,7 @@ npm run serve
 
 Created by Mindaugas Sakenis, m.sakenis@gmail.com
 
-Project Links:
-Front-End: [https://github.com/msakenis/stud-portal-frontend](https://github.com/msakenis/stud-portal-frontend)
+Project Links:<br />
+Front-End: [https://github.com/msakenis/stud-portal-frontend](https://github.com/msakenis/stud-portal-frontend) <br />
 Back-End: [https://github.com/msakenis/studportal-BE-serverless-](https://github.com/msakenis/studportal-BE-serverless-)
 
