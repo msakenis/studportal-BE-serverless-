@@ -4,14 +4,14 @@
   <h1 align="center">CodeOp Student Portal Back-End</h1>
 
   <p align="center">
-    This is Back-End code for students portal which Front-End is in this repo https://github.com/msakenis/stud-portal-frontend.
+    This is the Back-End code for the students portal which Front-End is in this repo https://github.com/msakenis/stud-portal-frontend.
 </p>
 
 <!-- ABOUT THE PROJECT -->
 
 ## :bulb: About The Project
 
- This is CRUD based Demo system, which you can add students, courses and set students to courses.
+ This is a CRUD based Demo system, which you can add students, courses and set students to courses.
 
 ### :hammer: Built With
 
@@ -19,7 +19,7 @@
 - JWT for Authentication;
 - MySQL Database;
 
-Please note that Front-End code is in other repo https://github.com/msakenis/stud-portal-frontend.
+Please note that the Front-End code is in another repo https://github.com/msakenis/stud-portal-frontend.
 Back-End adapted to work on Serverless service providers like MS Azure Functions.
 
 <!-- GETTING STARTED -->
@@ -50,7 +50,7 @@ git clone https://github.com/msakenis/studportal-BE-serverless-
 npm install
 ```
 
-3. Add your DB details as enviroment variables to Settings and change your main API URL in front-end:
+3. Add your DB details as environment variables to the Settings and change your main API URL in the front-end:
 
 ```sh
 npm run serve
