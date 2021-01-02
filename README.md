@@ -28,7 +28,7 @@ Back-End adapted to work on Serverless service providers like MS Azure Functions
 
 ### :mag_right: Demo version
 
-You can try the demo version <a href="http://sakenis.me.skujuotis.serveriai.lt/">here</a>
+You can try the demo version <a href="https://sakenis.me">here</a>
 
 PLEASE USE USER TO LOGIN:
 email: admin3@email.com
